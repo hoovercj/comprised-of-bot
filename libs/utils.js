@@ -15,11 +15,11 @@ exports.buildReplyText = function (username, baseText, shortText, url, hasImg) {
                                baseText;
 
     if (untrimmedTweetLength > maxTweetLength) {
-        statusText = screenName + replyBaseTextShort + replyUrl;
+        statusText = screenName + shortText + replyUrl;
     }
 
     if (statusText.length > maxTweetLength) {
-        statusText = screenName + replyBaseTextShort;
+        statusText = screenName + shortText;
     }
 
     if (statusText.length > maxTweetLength) {
