@@ -6,6 +6,8 @@ You can read the essay [here](http://en.wikipedia.org/wiki/User:Giraffedata/comp
 
 The bot is written in node.js with a redis brain makes sure that users aren't 'educated' twice by receiving more than one reply from the account. The project is hosted on heroku and was built entirely in the Cloud9 IDE.
 
+http://twitter.com/ComposedOf
+
 
      ,-----.,--.                  ,--. ,---.   ,--.,------.  ,------.
     '  .--./|  | ,---. ,--.,--. ,-|  || o   \  |  ||  .-.  \ |  .---'
