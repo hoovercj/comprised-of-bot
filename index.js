@@ -46,6 +46,7 @@ function replyTo(username, tweetId) {
             console.log(err);
         }
         console.log('Replied to: ' + username);
+        console.log('in_reply_to_status_id_str: ' + response.in_reply_to_status_id_str);
     });
 }
 
