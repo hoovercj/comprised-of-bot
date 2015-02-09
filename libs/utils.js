@@ -42,7 +42,7 @@ exports.checkTweetForTerm = function (tweet, searchTerm) {
         console.log('DONT TWEET: Received retweeted tweet or tweet with a URL');
         return false;
     } else if (tweet.text.toLowerCase().indexOf(searchTerm) == -1) {
-        console.log('DONT TWEET: Tweet does NOT contain phrase ' + searchTerm);
+        console.log('DONT TWEET: Tweet does NOT contain phrase ' + searchTerm + ', ' + tweet.text);
         return false;
     }
     return true;
