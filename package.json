@@ -18,6 +18,7 @@
   "homepage": "https://github.com/hoovercj/comprised-of-bot",
   "dependencies": {
     "redis": "^0.12.1",
+    "request": "^2.53.0",
     "twit": "^1.1.19",
     "url": "^0.10.2"
   }
