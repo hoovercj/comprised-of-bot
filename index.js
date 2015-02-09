@@ -1,3 +1,4 @@
+var utils = require('libs/utils.js'); // Local Import
 var redis = require('redis');
 var url = require('url');
 var Twit = require('twit');
@@ -29,18 +30,11 @@ var replyBaseText = ' "Comprised of" is poor grammar. Consider using "composed o
 var replyBaseTextShort = ' "Comprised of" is poor grammar - ';
 var replyUrl = 'http://en.wikipedia.org/wiki/User:Giraffedata/comprised_of';
 var replyImg = 'http://www.giraffedays.com/wp-content/uploads/2011/03/Grammar-Police.jpg';
-var maxUrlLength = 23;
-var defaultMaxLength = 140;
-var photoCharCount = 23;
-var maxTweetLength = 140 - 23;
+
 var searchTerm = 'comprised of';
 
 function replyTo(username, tweetId) {
-    var screenName = '@' + username;
-    var statusText = screenName + replyBaseText + replyUrl;
-    if (screenName.length + replyBaseText.length + maxUrlLength > maxTweetLength) {
-        statusText = screenName + replyBaseTextShort + replyUrl;
-    }
+    var statusText = utils.buildReplyText(username, replyBaseText, replyBaseTextShort, replyUrl, true);
     tuwm.postReply(statusText, replyImg, tweetId, function(err, response) {
         console.log('called post');
         if (err) {
@@ -64,17 +58,6 @@ function processTweet(tweet) {
     });
 }
 
-function checkTweet(tweet) {
-    if (tweet.retweeted_status || tweet.entities.urls.length > 0) {
-        console.log('DONT TWEET: Received retweeted tweet or tweet with a URL');
-        return false;
-    } else if (tweet.text.toLowerCase().indexOf(searchTerm) == -1) {
-        console.log('DONT TWEET: Tweet does NOT contain phrase ' + searchTerm);
-        return false;
-    }
-    return true;
-}
-
 //  filter the twitter public stream by the phrase 'comprised of'.
 var stream = T.stream('statuses/filter', { track: searchTerm });
 
@@ -84,7 +67,7 @@ var stream = T.stream('statuses/filter', { track: searchTerm });
 // the topic. This reduces the chance of tweeting at people
 // that are already aware of the topic.
 stream.on('tweet', function (tweet) {
-    if (checkTweet(tweet)) {
+    if (utils.checkTweetForTerm(tweet, searchTerm)) {
         processTweet(tweet);
     }
 });
