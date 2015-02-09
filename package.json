@@ -1,0 +1,24 @@
+{
+  "name": "composed-of",
+  "version": "1.0.0",
+  "description": ",-----.,--.                  ,--. ,---.   ,--.,------.  ,------.     '  .--./|  | ,---. ,--.,--. ,-|  || o   \\  |  ||  .-.  \\ |  .---'     |  |    |  || .-. ||  ||  |' .-. |`..'  |  |  ||  |  \\  :|  `--,      '  '--'\\|  |' '-' ''  ''  '\\ `-' | .'  /   |  ||  '--'  /|  `---.      `-----'`--' `---'  `----'  `---'  `--'    `--'`-------' `------'     -----------------------------------------------------------------",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hoovercj/comprised-of-bot.git"
+  },
+  "author": "Cody Hoover",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hoovercj/comprised-of-bot/issues"
+  },
+  "homepage": "https://github.com/hoovercj/comprised-of-bot",
+  "dependencies": {
+    "redis": "^0.12.1",
+    "twit": "^1.1.19",
+    "url": "^0.10.2"
+  }
+}
