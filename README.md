@@ -4,7 +4,7 @@ A simple twitter bot that monitors the twitter streaming API for users tweeting 
 
 You can read the essay [here](http://en.wikipedia.org/wiki/User:Giraffedata/comprised_of) as well as a [great profile](https://medium.com/backchannel/meet-the-ultimate-wikignome-10508842caad) written about him and posted on Medium.
 
-The bot is written in node.js with a redis brain makes sure that users aren't 'educated' twice by receiving more than one reply from the account. The project is hosted on heroku and was built entirely in the Cloud9 IDE.
+The bot is written in node.js with a redis brain that makes sure that users aren't 'educated' twice by receiving more than one reply from the account. The project is hosted on heroku and was built entirely in the Cloud9 IDE.
 
 http://twitter.com/ComposedOf
 
@@ -14,6 +14,7 @@ http://twitter.com/ComposedOf
     '  '--'\|  |' '-' ''  ''  '\ `-' | .'  /   |  ||  '--'  /|  `---.
      `-----'`--' `---'  `----'  `---'  `--'    `--'`-------' `------'
     ----------------------------------------------------------------- 
+*ascii art courtesy of Cloud9
 
 ## Uploading Media
 I used the [Twit](https://github.com/ttezel/twit) module for accessing the streaming API, but used these [two](https://gist.github.com/travischoma/9279105) [gists](https://gist.github.com/adaline/7363853) to post my tweets as the Twit doesn't support uploading media.
