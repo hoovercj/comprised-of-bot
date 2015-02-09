@@ -1,4 +1,4 @@
-var utils = require('../utils.js');
+var utils = require('../libs/utils.js');
 
 describe('Tweet Handling', function () {
 	var searchTerm = 'comprised of'

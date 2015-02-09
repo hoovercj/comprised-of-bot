@@ -1,4 +1,4 @@
-var utils = require('utils.js'); // Local Import
+var utils = require('libs/utils.js'); // Local Import
 var redis = require('redis');
 var url = require('url');
 var Twit = require('twit');
