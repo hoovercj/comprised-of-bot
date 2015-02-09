@@ -68,7 +68,7 @@ function checkTweet(tweet) {
     if (tweet.retweeted_status || tweet.entities.urls.length > 0) {
         console.log('DONT TWEET: Received retweeted tweet or tweet with a URL');
         return false;
-    } else if (tweet.text.toLowerCase().indexOf(searchTerm) > -1) {
+    } else if (tweet.text.toLowerCase().indexOf(searchTerm) == -1) {
         console.log('DONT TWEET: Tweet does NOT contain phrase ' + searchTerm);
         return false;
     }
