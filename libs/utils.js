@@ -8,25 +8,31 @@ var maxTweetLength = defaultMaxLength - 23;
 // with an acceptable length
 exports.buildReplyText = function (username, baseText, shortText, url, hasImg) {
     var screenName = '@' + username;
-    var statusText = screenName + baseText + url;
-    var untrimmedTweetLength = screenName.length + 
-                               (url ? Math.min(maxUrlLength, url.length) : 0) +
-                               (hasImg ? photoCharCount : 0) +
-                               baseText;
 
-    if (untrimmedTweetLength > maxTweetLength) {
-        statusText = screenName + shortText + replyUrl;
+    var untrimmedTweetLength = exports.getTweetLength(username, baseText, url, hasImg);
+    if (untrimmedTweetLength <= defaultMaxLength) {
+        return screenName + baseText + url;
     }
 
-    if (statusText.length > maxTweetLength) {
-        statusText = screenName + shortText;
+    var mediumTweetLength = exports.getTweetLength(username, shortText, url, hasImg);
+    if (mediumTweetLength <= defaultMaxLength) {
+        return screenName + shortText + url;
     }
 
-    if (statusText.length > maxTweetLength) {
-        statusText = screenName + url;
+    var shortTweetLength = exports.getTweetLength(username, url, hasImg);
+    if (shortTweetLength <= defaultMaxLength) {
+        return screenName + url;
     }
 
-    return statusText;
+    return url;
+}
+
+exports.getTweetLength = function (username, text, url, hasImg) {
+    var val = username.length + 
+           (url ? Math.min(maxUrlLength, url.length) : 0) +
+           (hasImg ? photoCharCount : 0) +
+           text.length;
+    return val;
 }
 
 // Takes a tweet and a search term and checks that the
