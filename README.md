@@ -4,7 +4,7 @@ A simple twitter bot that monitors the twitter streaming API for users tweeting 
 
 You can read the essay [here](http://en.wikipedia.org/wiki/User:Giraffedata/comprised_of) as well as a [great profile](https://medium.com/backchannel/meet-the-ultimate-wikignome-10508842caad) written about him and posted on Medium.
 
-The bot is written in node.js with a redis brain that makes sure that users aren't 'educated' twice by receiving more than one reply from the account. The project is hosted on heroku and was built entirely in the Cloud9 IDE.
+The bot is written in node.js with a redis brain that makes sure that users aren't 'educated' twice by receiving more than one reply from the account. It demonstrates exporting helper modules and testing them with Jasmine. The project is hosted on heroku and utilizes Travis-CI. Much of the development was done in the Cloud9 IDE.
 
 http://twitter.com/ComposedOf
 
@@ -48,3 +48,36 @@ The script will only 'educate' a particular user once. The `TWITTER_DEBUG_USER` 
 Setting `LOCAL=true` signifies that you are running the script completely locally and using a local instance of redis. In this case it will skip the authorization step. Setting it to false or leaving it blank will attempt to connect to the url supplied to the heroku config:REDISCLOUD_URL (set automatically on heroku by the redisCloud add-on)
 
 Conversely, if you want to run the script locally but connect to the redisCloud instance, copy the `REDISCLOUD_URL` value from heroku to your `.env` file. 
+
+## Testing with Jasmine
+([Via](http://jasmine.github.io/2.0/node.html))
+```
+$ npm install -D jasmine // Installs jasmine as a dev dependency
+$ npm install -g jasmine // Installs jasmine locally so you can run it
+$ jasmine init // Sets ups jasmine
+$ jasmine // Runs jasmine to execute all specs in the spec directory
+```
+I used the above steps to set up jasmine. View `/specs/main-spec.js` to see a basic test spec. More info on using Mocha can be found [here](http://jasmine.github.io/2.0/introduction.html).
+
+## Travis-CI
+([via](http://docs.travis-ci.com/user/getting-started/)]
+1) Login to [Travis](http://travis-ci.org/)
+
+2) Enable the repository [here](https://travis-ci.org/profile)
+
+3) Note the contents of `.travis.yml` which specifies information about your project
+
+```
+ language: node_js
+ node_js:
+   - "0.10"
+```
+4) Note the contents of `Procfile`. The following code is used by Travis to execute tests. Currently it merely executes `$ jasmine`.
+
+```
+  "scripts": {
+    "test": "jasmine"
+  },
+```
+
+5) Push to github and see the results in Travis
