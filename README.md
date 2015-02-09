@@ -4,7 +4,7 @@ A simple twitter bot that monitors the twitter streaming API for users tweeting 
 
 You can read the essay [here](http://en.wikipedia.org/wiki/User:Giraffedata/comprised_of) as well as a [great profile](https://medium.com/backchannel/meet-the-ultimate-wikignome-10508842caad) written about him and posted on Medium.
 
-The bot is written in node.js with a redis brain that makes sure that users aren't 'educated' twice by receiving more than one reply from the account. It demonstrates exporting helper modules and testing them with Jasmine. The project is hosted on heroku and utilizes Travis-CI. Pushes to the `heroku` branch of my repository are automatically deployed IF Travis-CI builds pass. Much of the development was done in the Cloud9 IDE.
+The bot is written in node.js with a redis brain that makes sure that users aren't 'educated' twice by receiving more than one reply from the account. It demonstrates exporting helper modules and testing them with Jasmine. The project is hosted on heroku and utilizes Travis-CI. Pushes to the `heroku` branch of my repository are automatically deployed IF Travis-CI builds pass. Much of the development was done in the [Cloud9 IDE](https://c9.io/).
 
 http://twitter.com/ComposedOf
 
@@ -50,6 +50,9 @@ The script will only 'educate' a particular user once. The `TWITTER_DEBUG_USER` 
 Setting `LOCAL=true` signifies that you are running the script completely locally and using a local instance of redis. In this case it will skip the authorization step. Setting it to false or leaving it blank will attempt to connect to the url supplied to the heroku config:REDISCLOUD_URL (set automatically on heroku by the redisCloud add-on)
 
 Conversely, if you want to run the script locally but connect to the redisCloud instance, copy the `REDISCLOUD_URL` value from heroku to your `.env` file. 
+
+## Creating Modules
+`utils.js` encapsulates helper methods so that they can easily and independently be tested apart from the main script and is based on [this guide](http://www.sitepoint.com/understanding-module-exports-exports-node-js/).
 
 ## Testing with Jasmine
 ([Via](http://jasmine.github.io/2.0/node.html))
