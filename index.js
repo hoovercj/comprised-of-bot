@@ -34,13 +34,13 @@ var defaultMaxLength = 140;
 var photoCharCount = 23;
 var maxTweetLength = 140 - 23;
 
-function replyTo(username) {
+function replyTo(username, tweetId) {
     var screenName = '@' + username;
     var statusText = screenName + replyBaseText + replyUrl;
     if (screenName.length + replyBaseText.length + maxUrlLength > maxTweetLength) {
         statusText = screenName + replyBaseTextShort + replyUrl;
     }
-    tuwm.post(statusText, replyImg, function(err, response) {
+    tuwm.postReply(statusText, replyImg, tweetId, function(err, response) {
         console.log('called post');
         if (err) {
             console.log(err);
@@ -51,14 +51,14 @@ function replyTo(username) {
 
 function processTweet(tweet) {
     // Don't tweet at the same person twice
-    console.log('Processing Tweet: ' + tweet.text);
-    client.sadd(repliedToKey, tweet.user.id, function(err, reply) {
+    console.log('Processing Tweet: ' + tweet.id_str + ', ' + tweet.text);
+    client.sadd(repliedToKey, tweet.user.id_str, function(err, reply) {
         if (err) {
             console.log(err);
         } else if (reply == 1 || tweet.user.screen_name == process.env.TWITTER_DEBUG_USER) {
-            replyTo(tweet.user.screen_name);
+            replyTo(tweet.user.screen_name, tweet.id_str);
         } else {
-            console.log(tweet.user.screen_name + ' has already been educated')
+            console.log('DONT TWEET: ' + tweet.user.screen_name + ' has already been educated')
         }
     });
 }
@@ -73,7 +73,7 @@ var stream = T.stream('statuses/filter', { track: 'comprised of' });
 // that are already aware of the topic.
 stream.on('tweet', function (tweet) {
     if (tweet.retweeted_status || tweet.entities.urls.length > 0) {
-        console.log('Received retweeted tweet or tweet with a URL');
+        console.log('DONT TWEET: Received retweeted tweet or tweet with a URL');
         return;
     }
     processTweet(tweet);
