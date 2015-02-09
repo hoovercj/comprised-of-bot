@@ -34,13 +34,13 @@ var defaultMaxLength = 140;
 var photoCharCount = 23;
 var maxTweetLength = 140 - 23;
 
-function replyTo(username) {
+function replyTo(username, tweetId) {
     var screenName = '@' + username;
     var statusText = screenName + replyBaseText + replyUrl;
     if (screenName.length + replyBaseText.length + maxUrlLength > maxTweetLength) {
         statusText = screenName + replyBaseTextShort + replyUrl;
     }
-    tuwm.post(statusText, replyImg, function(err, response) {
+    tuwm.postReply(statusText, replyImg, tweetId, function(err, response) {
         console.log('called post');
         if (err) {
             console.log(err);
@@ -56,7 +56,7 @@ function processTweet(tweet) {
         if (err) {
             console.log(err);
         } else if (reply == 1 || tweet.user.screen_name == process.env.TWITTER_DEBUG_USER) {
-            replyTo(tweet.user.screen_name);
+            replyTo(tweet.user.screen_name, tweet.id);
         } else {
             console.log(tweet.user.screen_name + ' has already been educated')
         }
