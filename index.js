@@ -46,18 +46,17 @@ function replyTo(username, tweetId) {
             console.log(err);
         }
         console.log('Replied to: ' + username);
-        console.log('in_reply_to_status_id_str: ' + response.in_reply_to_status_id_str);
     });
 }
 
 function processTweet(tweet) {
     // Don't tweet at the same person twice
-    console.log('Processing Tweet: ' + tweet.id + ', ' + tweet.text);
-    client.sadd(repliedToKey, tweet.user.id, function(err, reply) {
+    console.log('Processing Tweet: ' + tweet.id_str + ', ' + tweet.text);
+    client.sadd(repliedToKey, tweet.user.id_str, function(err, reply) {
         if (err) {
             console.log(err);
         } else if (reply == 1 || tweet.user.screen_name == process.env.TWITTER_DEBUG_USER) {
-            replyTo(tweet.user.screen_name, tweet.id);
+            replyTo(tweet.user.screen_name, tweet.id_str);
         } else {
             console.log('DONT TWEET: ' + tweet.user.screen_name + ' has already been educated')
         }
