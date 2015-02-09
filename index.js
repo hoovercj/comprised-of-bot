@@ -33,6 +33,7 @@ var maxUrlLength = 23;
 var defaultMaxLength = 140;
 var photoCharCount = 23;
 var maxTweetLength = 140 - 23;
+var searchTerm = 'comprised of';
 
 function replyTo(username, tweetId) {
     var screenName = '@' + username;
@@ -63,8 +64,19 @@ function processTweet(tweet) {
     });
 }
 
+function checkTweet(tweet) {
+    if (tweet.retweeted_status || tweet.entities.urls.length > 0) {
+        console.log('DONT TWEET: Received retweeted tweet or tweet with a URL');
+        return false;
+    } else if (tweet.text.toLowerCase().indexOf(searchTerm) > -1) {
+        console.log('DONT TWEET: Tweet does NOT contain phrase ' + searchTerm);
+        return false;
+    }
+    return true;
+}
+
 //  filter the twitter public stream by the phrase 'comprised of'.
-var stream = T.stream('statuses/filter', { track: 'comprised of' });
+var stream = T.stream('statuses/filter', { track: searchTerm });
 
 // Exclude tweets that are retweets or contain links.
 // Why links? Because posts with links are much more likely
@@ -72,11 +84,9 @@ var stream = T.stream('statuses/filter', { track: 'comprised of' });
 // the topic. This reduces the chance of tweeting at people
 // that are already aware of the topic.
 stream.on('tweet', function (tweet) {
-    if (tweet.retweeted_status || tweet.entities.urls.length > 0) {
-        console.log('DONT TWEET: Received retweeted tweet or tweet with a URL');
-        return;
+    if (checkTweet(tweet)) {
+        processTweet(tweet);
     }
-    processTweet(tweet);
 });
 
 stream.on('limit', function (limitMessage) {
