@@ -51,14 +51,14 @@ function replyTo(username, tweetId) {
 
 function processTweet(tweet) {
     // Don't tweet at the same person twice
-    console.log('Processing Tweet: ' + tweet.text);
+    console.log('Processing Tweet: ' + tweet.id + ', ' + tweet.text);
     client.sadd(repliedToKey, tweet.user.id, function(err, reply) {
         if (err) {
             console.log(err);
         } else if (reply == 1 || tweet.user.screen_name == process.env.TWITTER_DEBUG_USER) {
             replyTo(tweet.user.screen_name, tweet.id);
         } else {
-            console.log(tweet.user.screen_name + ' has already been educated')
+            console.log('DONT TWEET: ' + tweet.user.screen_name + ' has already been educated')
         }
     });
 }
@@ -73,7 +73,7 @@ var stream = T.stream('statuses/filter', { track: 'comprised of' });
 // that are already aware of the topic.
 stream.on('tweet', function (tweet) {
     if (tweet.retweeted_status || tweet.entities.urls.length > 0) {
-        console.log('Received retweeted tweet or tweet with a URL');
+        console.log('DONT TWEET: Received retweeted tweet or tweet with a URL');
         return;
     }
     processTweet(tweet);
