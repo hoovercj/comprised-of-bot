@@ -6,15 +6,7 @@ You can read the essay [here](http://en.wikipedia.org/wiki/User:Giraffedata/comp
 
 The bot is written in node.js with a redis brain that makes sure that users aren't 'educated' twice by receiving more than one reply from the account. It demonstrates exporting helper modules and testing them with Jasmine. The project is hosted on heroku and utilizes Travis-CI. Pushes to the `heroku` branch of my repository are automatically deployed IF Travis-CI builds pass. Much of the development was done in the [Cloud9 IDE](https://c9.io/).
 
-http://twitter.com/ComposedOf
-
-     ,-----.,--.                  ,--. ,---.   ,--.,------.  ,------.
-    '  .--./|  | ,---. ,--.,--. ,-|  || o   \  |  ||  .-.  \ |  .---'
-    |  |    |  || .-. ||  ||  |' .-. |`..'  |  |  ||  |  \  :|  `--, 
-    '  '--'\|  |' '-' ''  ''  '\ `-' | .'  /   |  ||  '--'  /|  `---.
-     `-----'`--' `---'  `----'  `---'  `--'    `--'`-------' `------'
-    ----------------------------------------------------------------- 
-*ascii art courtesy of Cloud9
+http://twitter.com/ComposedOf UPDATE: twitter shut me down :-(
 
 ## Uploading Media
 I used the [Twit](https://github.com/ttezel/twit) module for accessing the streaming API, but used these [two](https://gist.github.com/travischoma/9279105) [gists](https://gist.github.com/adaline/7363853) to post my tweets as the Twit doesn't support uploading media.
